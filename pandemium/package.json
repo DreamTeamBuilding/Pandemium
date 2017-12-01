@@ -1,0 +1,31 @@
+{
+  "name": "pandemium",
+  "version": "1.0.0",
+  "description": "Moteur de recherche spécialisé dans les maladies",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www", 
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DreamTeamBuilding/Pandemium.git"
+  },
+  "author": "DreamTeamBuilding",
+  "bugs": {
+    "url": "https://github.com/DreamTeamBuilding/Pandemium/issues"
+  },
+  "homepage": "https://github.com/DreamTeamBuilding/Pandemium#readme",
+  "dependencies": {
+    "body-parser": "~1.18.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.15.5",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.0",
+    "nodemon": "^1.12.1",
+    "serve-favicon": "~2.4.5"
+  }
+}
