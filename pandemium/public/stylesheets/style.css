@@ -13,13 +13,41 @@ a{
   color : white;
   text-decoration : none;
 }
-a:hover{
+a:active, a:focus{
   color : #DB6350;
   text-decoration : none;
 }
+a:hover{
+  color : #dddddd;
+  text-decoration : none;
+}
+
+h1,h2,h3,h4,h5,h6{
+  font-family :  HomeRemedy, Helvetica, Arial, sans-serif;
+}
+
 h1{
-  font: 4em HomeRemedy, Helvetica, Arial, sans-serif;
+  font-size: 4em;
+}
+h2{
+  font-size : 3em;
+}
+
+.clear-all{
+  clear : both;
+}
+
+.headerDark{
   background-color : #00C75B;
+  margin : 0;
+  padding-left : 10px;
+  padding-right : 10px;
+}
+.small-search-field{
+  margin-top : 20px;
+  margin-bottom : 10px;
+}
+#titre{
   margin : 0;
   padding : 15px;
 }
@@ -30,9 +58,9 @@ h1{
   padding : 50px;
 }
 
-#citation, #search-field{
-  margin-top : 30px;
-  margin-bottom : 30px;
+#citation, .spaced{
+  padding-top : 30px;
+  padding-bottom : 30px;
 }
 
 #citation{
@@ -43,16 +71,17 @@ h1{
 /* Correction des couleurs de bootstrap pour notre theme*/
 .btn-default{
   background-color : #00C75B;
-  border-color : #00C75B;
+  border-color : #16DB70;
   color : white;
 }
 .btn-default:hover{
   background-color : #DB6350;
-  border-color : #DB6350;
+  border-color : #16DB70;
   color : white;
 }
 .btn-default:active,.btn-default:focus{
   background-color : #953C2E;
+  color : white;
 }
 .form-control:focus{
   border-color: #953C2E;
