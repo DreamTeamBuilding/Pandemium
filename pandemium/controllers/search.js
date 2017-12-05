@@ -8,13 +8,16 @@ exports.search = function(req, res) {
 	var dir = './cache/'+requete;
   if(fs.existsSync(dir))
   {
-		console.log("Cette recherche est dans le cache")
-		// extract.
+		//Petit affichage visuel, en cours de modification
+		res.setHeader('content-type', 'text/html');
+		res.write("Requete deja dans le cache");
+		res.end();
   }
 	else {
+		//Not in cache, do request
 		search.search(requete, function(queryResult) {
-	    	res.setHeader('content-type', 'application/json');
 				extract.extractContent(requete, queryResult);
+				res.setHeader('content-type', 'application/json');
 				res.send(queryResult);
 		});
 	}
