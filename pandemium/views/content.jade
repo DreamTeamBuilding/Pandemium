@@ -1,20 +1,17 @@
 extends layout
 
 block content
-  h1(id='titre' class='headerDark')
-    a(href="/") Pandemium
-
-  div(id='content')
-    form(class='form-group spaced')
+  div(class='headerDark row')
+    h2(class="pull-left")
+      a(href="/") Pandemium
+    form(class='form-group pull-right col-md-5 small-search-field')
       div(class='input-group input-group-lg')
         input(type='text' class='form-control' id='search-field')
         span( class='input-group-btn')
           button(id="submit-button" class='btn btn-default'
           type='submit' aria-label='Rechercher' title='Rechercher')
             span(class='glyphicon glyphicon-search' aria-hidden='true')
+    br(class="clear-all")
+    script(src="/js/redirect.js")
 
-    div(id='citation')
-      p citation
-
-    script(src="js/citation.js")
-    script(src="js/redirect.js")
+  block content-body

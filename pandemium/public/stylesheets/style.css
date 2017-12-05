@@ -1,8 +1,91 @@
+ @font-face { font-family: HomeRemedy; src: url('../fonts/HomeRem.ttf'); }
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: 18px ;
+  font-family : "Proxima Nova Alt", Arial, sans-serif;
+  font-weight: 400;
+  text-align : center;
+  color : white;
+
+  background-color : #16DB70;
+}
+a{
+  color : white;
+  text-decoration : none;
+}
+a:active, a:focus{
+  color : #DB6350;
+  text-decoration : none;
+}
+a:hover{
+  color : #dddddd;
+  text-decoration : none;
 }
 
-a {
-  color: #00B7FF;
+h1,h2,h3,h4,h5,h6{
+  font-family :  HomeRemedy, Helvetica, Arial, sans-serif;
+}
+
+h1{
+  font-size: 4em;
+}
+h2{
+  font-size : 3em;
+}
+
+.clear-all{
+  clear : both;
+}
+
+.headerDark{
+  background-color : #00C75B;
+  margin : 0;
+  padding-left : 10px;
+  padding-right : 10px;
+}
+.small-search-field{
+  margin-top : 20px;
+  margin-bottom : 10px;
+}
+#titre{
+  margin : 0;
+  padding : 15px;
+}
+
+#content{
+  max-width : 1000px;
+  margin : auto;
+  padding : 50px;
+}
+
+#citation, .spaced{
+  padding-top : 30px;
+  padding-bottom : 30px;
+}
+
+#citation{
+  font-style: italic;
+}
+
+
+/* Correction des couleurs de bootstrap pour notre theme*/
+.btn-default{
+  background-color : #00C75B;
+  border-color : #16DB70;
+  color : white;
+}
+.btn-default:hover{
+  background-color : #DB6350;
+  border-color : #16DB70;
+  color : white;
+}
+.btn-default:active,.btn-default:focus{
+  background-color : #953C2E;
+  color : white;
+}
+.form-control:focus{
+  border-color: #953C2E;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(149,60,46,.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(149,60,46,.6);
 }
