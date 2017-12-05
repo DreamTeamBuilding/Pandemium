@@ -19,7 +19,11 @@ exports.search = function(req, res) {
 				res.setHeader('content-type', 'application/json');
 				res.send(queryResult);
 		});
-  }
+  } else {
+		res.setHeader('content-type', 'application/json');
+		res.write("Deja dans le cache.");
+		res.end();
+	}
 	// Read the cache
-	res.end();
+	
 }
