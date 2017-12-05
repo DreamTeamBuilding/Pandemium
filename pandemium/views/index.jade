@@ -4,14 +4,15 @@ block content
   h1(id='titre') Pandemium
 
   div(id='content')
-    form(class='form-group' id='search-field')
+    form(class='form-group')
       div(class='input-group input-group-lg')
         input(type='text' class='form-control' id='search-field')
         span( class='input-group-btn')
-          button(class='btn btn-default' type='submit')
+          button(id="submit-button" class='btn btn-default' type='submit')
             span(class='glyphicon glyphicon-search' aria-hidden='true')
 
     div(id='citation')
       p citation
 
     script(src="js/citation.js")
+    script(src="js/redirect.js")
