@@ -1,6 +1,9 @@
 var textract = require('textract');
 var fs = require('fs');
 
+
+exports.getBackContent
+
 exports.extractContent = function(query, jsonAsString) {
   var queryResultJsonObj = JSON.parse(jsonAsString);
   var dir = './cache/'+query;
@@ -17,7 +20,7 @@ exports.extractContent = function(query, jsonAsString) {
 function extractUrl(url, dir, index) {
   console.log(url);
   textract.fromUrl(url, function(error, text) {
-    fs.appendFile(dir+'/content'+index, text, function (err) {
+    fs.appendFile(dir+'/'+index, text, function (err) {
       if (err) throw err;
     });
   });

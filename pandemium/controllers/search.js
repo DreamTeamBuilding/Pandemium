@@ -8,8 +8,10 @@ exports.search = function(req, res) {
 	var dir = './cache/'+requete;
   if(fs.existsSync(dir))
   {
-		console.log("Cette recherche est dans le cache")
-		// extract.
+		console.log("Cette recherche est dans le cache");
+		res.setHeader('content-type', 'application/json');
+		restore.getBackContent(requete, queryResult);
+		res.send(queryResult);
   }
 	else {
 		search.search(requete, function(queryResult) {
