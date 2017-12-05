@@ -11,6 +11,9 @@ exports.search = function(req, res) {
 exports.spotlightSearch = function(req, res) {
 	spotlight.search(function(queryResult) {
     	res.setHeader('content-type', 'application/json');
-    	res.send(queryResult);
+    	var data = {}
+    	data.dbPedia = queryResult;
+    	data.fileName = 'file';
+    	res.send(data);
 	});
 }

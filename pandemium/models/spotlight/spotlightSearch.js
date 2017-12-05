@@ -3,11 +3,12 @@ var http = require('http');
 var confidence = 0.2;
 var support = 20;
 
-function spotlightSearch(query, callback) {
-  query = query.replace(/ /g, '%20');
+//Peut être ne garder que l'objet Ressources
+function spotlightSearch(text, callback) {
+  text = text.replace(/ /g, '%20');
 	var options = {
 		host: 'model.dbpedia-spotlight.org',
-		path: '/fr/annotate?text='+query+'&confidence='+confidence+'&support='+support,
+		path: '/fr/annotate?text='+text+'&confidence='+confidence+'&support='+support,
     headers: { 'Accept': 'application/json' }
 	};
 
@@ -23,7 +24,7 @@ function spotlightSearch(query, callback) {
 			var body = Buffer.concat(bodyChunks);
 			//console.log('BODY: ' + body);
 			// ...and/or process the entire body here.
-			callback(body);
+			callback(JSON.parse(body));
 		});
 
 	});
@@ -33,5 +34,10 @@ function spotlightSearch(query, callback) {
 	});
 
 }
+
+//TODO méthode annoter
+// parametre : liste de strings, 1 élement de la liste correspond au texte complet d'un fichier telecharge
+// retour : liste d'objet de la forme {filename: fichierSource, dbPedia: resultatSpotligtSearch}
+// la methode parcourt la liste passé en parametre et cree 1 objet pour chaque element de la liste
 
 module.exports.spotlightSearch = spotlightSearch;
