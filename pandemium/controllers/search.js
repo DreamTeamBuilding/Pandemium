@@ -1,5 +1,6 @@
 var search = require('../models/search/search');
 var extract = require('../models/extract/extract');
+var restore = require('../models/restore/restore');
 var fs = require('fs');
 
 exports.search = function(req, res) {
@@ -13,7 +14,7 @@ exports.search = function(req, res) {
 		});
   }
 	// Read the cache
-	restore.getContent(requete, queryResult);
-	res.setHeader('content-type', 'application/json');
-	res.send(queryResult);
+	//var queryResult = restore.getContent(requete);
+	//res.setHeader('content-type', 'application/json');
+	//res.send(queryResult);
 }

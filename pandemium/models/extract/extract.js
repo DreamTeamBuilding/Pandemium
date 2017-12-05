@@ -1,9 +1,6 @@
 var textract = require('textract');
 var fs = require('fs');
 
-
-exports.getBackContent
-
 exports.extractContent = function(query, jsonAsString) {
   var queryResultJsonObj = JSON.parse(jsonAsString);
   var dir = './cache/'+query;
