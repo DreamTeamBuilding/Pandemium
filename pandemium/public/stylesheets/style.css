@@ -9,7 +9,14 @@ body {
 
   background-color : #16DB70;
 }
-
+a{
+  color : white;
+  text-decoration : none;
+}
+a:hover{
+  color : #DB6350;
+  text-decoration : none;
+}
 h1{
   font: 4em HomeRemedy, Helvetica, Arial, sans-serif;
   background-color : #00C75B;
