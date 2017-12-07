@@ -1,5 +1,10 @@
 var https = require('https');
 
+//Clé lulu
+//var apiKey = 'AIzaSyDsFGhns8Rvi-d4l_MRkhzhktRXsAcJ-KI';
+//Clé pierrick
+//var apiKey = 'AIzaSyAC81m_sAt5er7pEWV8iftPZL40YvONc7Es';
+
 var apiKey = 'AIzaSyBAbIDGkq-3fGya2AUWdiStKuUDrQPb_YI';
 var customSearch = '014213754068618715256:oyi0ols3czy';
 var numberOfResult = 10;
@@ -20,7 +25,7 @@ function search(query, callback) {
 		if (numberOfResult > 10)
 			options.path = defaultPath + '&start=' + (i + 1) + '&num=' + Math.min(10, numberOfResult - i);
 		else
-			options.path = defaultPath + '&num=' + Math.min(10, numberOfResult - i);
+			options.path = defaultPath;
 
 		console.log("requete :" + i);
 		request = https.get(options, function(res) {
