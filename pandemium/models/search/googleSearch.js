@@ -2,7 +2,7 @@ var https = require('https');
 
 var apiKey = 'AIzaSyBAbIDGkq-3fGya2AUWdiStKuUDrQPb_YI';
 var customSearch = '014213754068618715256:oyi0ols3czy';
-var numberOfResult = 15;
+var numberOfResult = 10;
 var count = 0;
 var error = false;
 
@@ -17,13 +17,17 @@ function search(query, callback) {
 	var request;
 	
 	for(var i = 0; i <= numberOfResult; i += 10) {
-		options.path = defaultPath+'&start=' + (i + 1) + '&num=' + Math.min(10,numberOfResult - i);
+		if (numberOfResult > 10)
+			options.path = defaultPath + '&start=' + (i + 1) + '&num=' + Math.min(10, numberOfResult - i);
+		else
+			options.path = defaultPath + '&num=' + Math.min(10, numberOfResult - i);
+
+		console.log("requete :" + i);
 		request = https.get(options, function(res) {
 			console.log(res.statusCode);
 			var bodyChunks = [];
 			res.on('data', function(chunk) {
 				bodyChunks.push(chunk);
-				console.log("[REQ]Chunks : " + bodyChunks.length);
 			}).on('end', function() {
 				body.push(Buffer.concat(bodyChunks));
 				finalCallback(body, callback);
@@ -57,7 +61,7 @@ function finalCallback(body, callback) {
 		} else {
 			callback(data);
 		}
-		finalCallback = function(){
+		finalCallback = function() {
 			console.log('ERROR : multiple callback');
 		};
 	}
