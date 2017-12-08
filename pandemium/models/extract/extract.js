@@ -17,7 +17,7 @@ exports.extractContent = function(query, jsonAsString) {
 function extractUrl(url, dir, index) {
   //console.log(url);
   textract.fromUrl(url, function(error, text) {
-    fs.appendFile(dir+'/'+index, text, function (err) {
+    fs.appendFile(dir+'/content'+index, text, function (err) {
       if (err) throw err;
     });
   });
