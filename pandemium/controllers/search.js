@@ -9,8 +9,8 @@ exports.search = function(req, res) {
 }
 
 exports.spotlightSearch = function(req, res) {
-	spotlight.search(function(queryResult) {
+	spotlight.searchList(function(annotatedFiles) {
     	res.setHeader('content-type', 'application/json');
-    	res.send(queryResult);
+    	res.send(annotatedFiles);
 	});
 }
