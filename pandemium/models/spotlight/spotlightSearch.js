@@ -25,19 +25,54 @@ function spotlightSearch(text, callback) {
 			//console.log('BODY: ' + body);
 			// ...and/or process the entire body here.
 			callback(JSON.parse(body));
+      //console.log(JSON.parse(body));
+      //test = JSON.parse(body);
+      //console.log(test);
 		});
 
 	});
 
 	request.on('error', function(e) {
 		console.log('ERROR' + e.message);
+    return false;
 	});
 
 }
 
-//TODO méthode annoter
-// parametre : liste de strings, 1 élement de la liste correspond au texte complet d'un fichier telecharge
-// retour : liste d'objet de la forme {filename: fichierSource, dbPedia: resultatSpotligtSearch}
-// la methode parcourt la liste passé en parametre et cree 1 objet pour chaque element de la liste
+// Permet de rendre une boucle asynchrone synchrone
+function asyncLoop(o){
+    var i=-1;
+
+    var loop = function(){
+        i++;
+        if(i==o.length){o.callback(); return;}
+        o.functionToLoop(loop, i);
+    }
+    loop();
+}
+
+function annotateFiles(filesList, callback) {
+  // filesList ->  {"listFiles" : [{"filename" : "blabla", "content" : "blablabla"},{"filename" : "blabla", "content" : "blablabla"}]}
+  // annotatedFiles -> {"annotatedFiles" : [{"fileName": "fichierSource", "dbPedia": "resultatSpotligtSearch"}]}
+  var annotatedFiles = {};
+  annotatedFiles.annotatedFiles = [];
+  asyncLoop({
+    length : filesList.listFiles.length,
+    functionToLoop : function(loop, i){
+      var file = {};
+      file.fileName = filesList.listFiles[i].filename;
+      spotlightSearch(filesList.listFiles[i].content, res => {
+        file.dbPedia = res;
+        annotatedFiles.annotatedFiles.push(file);
+        loop();
+      })
+    },
+    callback : function(){
+      callback(annotatedFiles);
+    }
+  });
+}
+
 
 module.exports.spotlightSearch = spotlightSearch;
+module.exports.annotateFiles = annotateFiles;
