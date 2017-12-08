@@ -12,6 +12,21 @@ var citations = [
   {"auteur" : "Woody Allen", "citation" : "La vie est une maladie mortelle, sexuellement transmissible."},
   {"auteur" : "Pierre Dac", "citation" : "J'étais chauve... et je le suis encore... grâces aux pastilles de menthe."},
   {"auteur" : "Woody Allen", "citation" : "Je n'ai pas peur de la mort, mais quand elle se présentera, j'aimerais autant ne pas être là."},
+  {"auteur" : "Jean Marie Bigard", "citation" : "Les hémorroïdes gagnent du terrain, les chercheurs de grattent la tête."},
+  {"auteur" : "Jean Marie Bigard", "citation" : "Si l'avortement est un meurtre, la branlette c'est quoi, un génocide ?"},
+  {"auteur" : "Lawrence Durrell", "citation" : "La maladie ne s'intéresse pas à ceux qui ont envi de mourir."},
+  {"auteur" : "Nicolas de Chamfort", "citation" : "Vivre est une maladi dont le someil nous soulage toutes les seize heures."},
+  {"auteur" : "proverbe italien", "citation" : "Si le malade meurt, c'est le médecin qui l'a tué ; s'il guérit, ce sont les saints qui l'ont sauvé."},
+  {"auteur" : "proverbe chinois", "citation" : "A force d'être malade, on finit par devenir un bon médecin."},
+  {"auteur" : "Karl Kraus", "citation" : "Psychanalyse : une maladie qui se prend pour son remède."},
+  {"auteur" : "Paul Morant", "citation" : "La vie est une maladie dont tout le monde meurt."},
+  {"auteur" : "Jacques Rouxel", "citation" : "La plus grave maladie du cerveau c'est de réfléchir."},
+  {"auteur" : "film La cité de la peur", "citation" : " - Qu'est ce qu'y'a ! Vous êtes malade en voiture ? - Non, c'est quand je suis content, je vomi, et là, je suis super content !!"},
+  {"auteur" : "Coluche", "citation" : "Mon psychiartre, pour quize mille francs, il m'a débarrassé de ce que j'avais : quize mille francs."},
+  {"auteur" : "Philippe Geluck", "citation" : "Beaucoup de gens sont malade quand ils sont vieux... C'est triste... D'un autre côté, ça les occupe."},
+  {"auteur" : "Coluche", "citation" : "La médecine est un métier dangereux. Ceux qui ne meurent pas peuvent vous faire un procès."},
+  {"auteur" : "Gaspard Prout", "citation" : "Strangers in the night ! Syphilis in the morning."},
+  {"auteur" : "Alphonse Allais", "citation" : "L'avantage des médecins, c'est que lorsqu'ils commettent une erreur, ils l'enterrent tout de suite..."},
   {"auteur" : "Pierre Dac", "citation" : "La constipation c'est quand la matière fait cale."}
 ];
 
