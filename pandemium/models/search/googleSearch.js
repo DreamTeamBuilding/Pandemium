@@ -20,7 +20,7 @@ function search(query, callback) {
 
 	var body = [];
 	var request;
-	
+
 	for(var i = 0; i < numberOfResult; i += 10) {
 		if (numberOfResult > 10)
 			options.path = defaultPath + '&start=' + (i + 1) + '&num=' + Math.min(10, numberOfResult - i);
@@ -62,10 +62,8 @@ function finalCallback(body, callback) {
 		console.log(data.items.length + " results obtained");
 		if(data.items.length == 0) {
 			error = true;
-			console.log('ERROR : no results obtained');
-		} else {
-			callback(data);
 		}
+		callback(data);
 	}
 }
 

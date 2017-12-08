@@ -1,18 +1,16 @@
 var spotlight = require('../models/spotlight/testSpotlight');
-var sparql = require('sparql');
+var sparql = require('../models/sparql/sparqlSearch');
 
 exports.spotlightSearch = function(req, res) {
-	spotlight.search(function(queryResult) {
+	spotlight.searchList(function(annotatedFiles) {
     	res.setHeader('content-type', 'application/json');
-    	res.send(queryResult);
+    	res.send(annotatedFiles);
 	});
 }
 
 exports.sparqlSearch = function(req, res) {
-	var request = 'PREFIX res: <http://dbpedia.org/resource/> SELECT res:Cardiomyopathy ?p ?n WHERE {res:Cardiomyopathy ?p ?n.}';
-	var client = new sparql.Client('http://dbpedia.org/sparql');
-	client.query(request, function(err, result) {
-		res.setHeader('content-type', 'application/json');
-		res.send(result);
-	});
+	sparql.sparqlSearch('Grippe', function(result) {
+    res.setHeader('content-type', 'application/json');
+    res.send(result);
+  });
 }
