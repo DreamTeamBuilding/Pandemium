@@ -2,7 +2,7 @@ var sparql = require('sparql');
 
 exports.sparqlSearch = function(maladie, callback) {
   //console.log(maladie);
-  var request = `PREFIX obj: <http://dbpedia.org/resource/Allergy>
+  var request = `PREFIX obj: <http://dbpedia.org/resource/`+maladie+`>
 SELECT ?property ?hasValue ?isValueOf
 WHERE {
   { obj: ?property ?hasValue }
