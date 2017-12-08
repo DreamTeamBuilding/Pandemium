@@ -16,21 +16,15 @@ exports.search = function(req, res) {
   {
 		//Not in cache, do request
 		search.search(requete, function(queryResult) {
-				extract.extractContent(requete, queryResult);
-				res.setHeader('content-type', 'application/json');
-				res.send(queryResult);
-		});
+				extract.extractContent(requete, queryResult, function(q) {
+					var resultat = restore.getContent(q);
+					res.send(resultat);
+
+				});
+			});
   } else {
-		res.setHeader('content-type', 'application/json');
-		res.write("Deja dans le cache.");
-		res.end();
+		var queryResult = restore.getContent(requete);
+		res.send(queryResult);
+		console.log(queryResult);
 	}
-	// Read the cache
-<<<<<<< HEAD
-	//var queryResult = restore.getContent(requete);
-	//res.setHeader('content-type', 'application/json');
-	//res.send(queryResult);
-=======
-	
->>>>>>> b96eab1387dfd7df321d3b513fecb7d399618e7a
 }
