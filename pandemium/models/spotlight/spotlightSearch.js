@@ -51,22 +51,26 @@ function asyncLoop(o){
     loop();
 }
 
+
 function annotateFiles(filesList, callback) {
   // filesList ->  {"listFiles" : [{"filename" : "blabla", "content" : "blablabla"},{"filename" : "blabla", "content" : "blablabla"}]}
   // annotatedFiles -> {"annotatedFiles" : [{"fileName": "fichierSource", "dbPedia": "resultatSpotligtSearch"}]}
   var annotatedFiles = {};
   annotatedFiles.annotatedFiles = [];
+
+  var annotateOneFile = function(loop, i){
+    var file = {};
+    file.fileName = filesList.listFiles[i].filename;
+    spotlightSearch(filesList.listFiles[i].content, res => {
+      file.dbPedia = res;
+      annotatedFiles.annotatedFiles.push(file);
+      loop();
+    })
+  };
+
   asyncLoop({
     length : filesList.listFiles.length,
-    functionToLoop : function(loop, i){
-      var file = {};
-      file.fileName = filesList.listFiles[i].filename;
-      spotlightSearch(filesList.listFiles[i].content, res => {
-        file.dbPedia = res;
-        annotatedFiles.annotatedFiles.push(file);
-        loop();
-      })
-    },
+    functionToLoop : annotateOneFile,
     callback : function(){
       callback(annotatedFiles);
     }
