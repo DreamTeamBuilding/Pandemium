@@ -19,12 +19,10 @@ exports.search = function(req, res) {
 				extract.extractContent(requete, queryResult, function(q) {
 					var resultat = restore.getContent(q);
 					res.send(resultat);
-
 				});
 			});
   } else {
 		var queryResult = restore.getContent(requete);
 		res.send(queryResult);
-		console.log(queryResult);
 	}
 }
