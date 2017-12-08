@@ -22,12 +22,7 @@ function spotlightSearch(text, callback) {
 			bodyChunks.push(chunk);
 		}).on('end', function() {
 			var body = Buffer.concat(bodyChunks);
-			//console.log('BODY: ' + body);
-			// ...and/or process the entire body here.
 			callback(JSON.parse(body));
-      //console.log(JSON.parse(body));
-      //test = JSON.parse(body);
-      //console.log(test);
 		});
 
 	});
