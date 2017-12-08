@@ -6,6 +6,6 @@ router.get('/', function(req, res, next) {
   res.redirect('/');
 });
 router.get('/testSpotlight', devController.spotlightSearch);
-router.get('/sparqlSearch', devController.sparqlSearch);
+router.get('/sparqlSearch/:query', devController.sparqlSearch);
 
 module.exports = router;
