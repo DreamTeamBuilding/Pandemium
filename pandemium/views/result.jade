@@ -1,0 +1,26 @@
+extends content
+
+block content-body
+  h1= maladie
+  p
+    Hey hey hey :) Ici sera le texte et tout #lorem ipsus #op #swag
+    br
+    br
+
+  div(class='headerDark row')
+    h3 Augmentation du champ de recherche
+    p Tolerance
+      span(id="seuilToleranceTxt")  70
+      | %
+    input(id="toleranceSlider" type="range" min="0" max="100" value="70")
+    br
+
+  div(class="row")
+    div(class="col-sm-6 half-page")
+      h3 En savoir plus
+      p ici on va mettre toutes les infos qu'on aura réussi à concaténer à travers toutes nos super requetes, avec la tolérance jouant sur l'étalage des données qu'on va chercher et tout et tout et tout #lorem ipsus
+    div(class="col-sm-6 half-page")
+      h3 Similarites
+      p et ici on aura un beau tableau de comparaison des similarités et tout
+
+  script(src="js/slider.js")

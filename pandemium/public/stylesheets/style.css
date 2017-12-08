@@ -5,7 +5,7 @@ body {
   font-family : "Proxima Nova Alt", Arial, sans-serif;
   font-weight: 400;
   text-align : center;
-  color : white;
+  color : #953C2E;
 
   background-color : #16DB70;
 }
@@ -42,6 +42,7 @@ h2{
   margin : 0;
   padding-left : 10px;
   padding-right : 10px;
+  color : white;
 }
 .small-search-field{
   margin-top : 20px;
