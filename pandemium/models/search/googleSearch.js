@@ -1,15 +1,13 @@
 var https = require('https');
 
-<<<<<<< HEAD
+
 //Clé lulu
 var apiKey = 'AIzaSyDsFGhns8Rvi-d4l_MRkhzhktRXsAcJ-KI';
 //Clé pierrick
 //var apiKey = 'AIzaSyAC81m_sAt5er7pEWV8iftPZL40YvONc7Es';
 
 //var apiKey = 'AIzaSyBAbIDGkq-3fGya2AUWdiStKuUDrQPb_YI';
-=======
-var apiKey = 'AIzaSyBlqai4Y99tQZprGNLfPtV0J6dJo1ctdGE';
->>>>>>> 2c2605dd1ab1d7921fb3ac150721a2110de48b2e
+
 var customSearch = '014213754068618715256:oyi0ols3czy';
 var numberOfResult = 10;
 var count = 0;
@@ -43,12 +41,7 @@ function search(query, callback) {
 			});
 
 		});
-<<<<<<< HEAD
 	}
-=======
-
-	});
->>>>>>> 2c2605dd1ab1d7921fb3ac150721a2110de48b2e
 
 	request.on('error', function(e) {
 		error = true;
@@ -57,7 +50,6 @@ function search(query, callback) {
 
 }
 
-<<<<<<< HEAD
 function finalCallback(body, callback) {
 	count += 10;
 	if(body.length > (numberOfResult - 1) / 10) {
@@ -77,6 +69,4 @@ function finalCallback(body, callback) {
 	}
 }
 
-=======
->>>>>>> 2c2605dd1ab1d7921fb3ac150721a2110de48b2e
 module.exports.search = search;
