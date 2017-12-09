@@ -2,14 +2,13 @@ var textract = require('textract');
 var fs = require('fs');
 var async = require('async');
 
-exports.extractContent = function(query, jsonAsString, callback) {
-  var queryResultJsonObj = JSON.parse(jsonAsString);
+exports.extractContent = function(query, queryResult, callback) {
   var dir = './cache/'+query;
   if(!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
   }
   extractUrl.dir = dir;
-  async.eachOf(queryResultJsonObj.items, extractUrl, function(err) {
+  async.eachOf(queryResult.items, extractUrl, function(err) {
     if(err)
       console.log("ERROR " + err);
     callback(query);

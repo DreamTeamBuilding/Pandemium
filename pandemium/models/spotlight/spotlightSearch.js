@@ -1,4 +1,5 @@
 var http = require('http');
+var querystring = require('querystring');
 
 var confidence = 0.2;
 var support = 20;
@@ -6,13 +7,23 @@ var support = 20;
 //Peut être ne garder que l'objet Ressources
 function spotlightSearch(text, callback) {
   text = text.replace(/ /g, '%20');
-	var options = {
+	var postData = querystring.stringify({
+    'text': text,
+    'confidence': confidence,
+    'support': support
+  });
+
+  var options = {
 		host: 'model.dbpedia-spotlight.org',
-		path: '/fr/annotate?text='+text+'&confidence='+confidence+'&support='+support,
-    headers: { 'Accept': 'application/json' }
+		path: '/fr/annotate',
+    method: 'POST',
+    headers: { 
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Length': Buffer.byteLength(postData),
+      'Accept': 'application/json' }
 	};
 
-	var request = http.get(options, function(res) {
+	var request = http.request(options, function(res) {
 		console.log(res.statusCode);
 		console.log('HEADERS: ' + JSON.stringify(res.headers));
 		// Buffer the body entirely for processing as a whole.
@@ -22,7 +33,7 @@ function spotlightSearch(text, callback) {
 			bodyChunks.push(chunk);
 		}).on('end', function() {
 			var body = Buffer.concat(bodyChunks);
-			callback(JSON.parse(body));
+			callback((JSON.parse(body)).Resources);
 		});
 
 	});
@@ -32,6 +43,8 @@ function spotlightSearch(text, callback) {
     return false;
 	});
 
+  request.write(postData);
+  request.end();
 }
 
 // Permet de rendre une boucle asynchrone synchrone

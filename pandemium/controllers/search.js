@@ -1,6 +1,7 @@
 var search = require('../models/search/search');
 var extract = require('../models/extract/extract');
 var restore = require('../models/restore/restore');
+var spotlight = require('../models/spotlight/spotlightSearch');
 var fs = require('fs');
 
 exports.search = function(req, res) {
@@ -18,12 +19,17 @@ exports.search = function(req, res) {
 		// search.search(escape(req.params.query), function(queryResult)  => il y avait ça sur master
 		search.search(requete, function(queryResult) {
 				extract.extractContent(requete, queryResult, function(q) {
-					var resultat = restore.getContent(q);
-					res.send(resultat);
-				});
+					processResult(restore.getContent(q), res);
+			});
 			});
   } else {
-		var queryResult = restore.getContent(requete);
-		res.send(queryResult);
+		processResult(restore.getContent(requete), res);
 	}
+}
+
+function processResult(result, res) {
+	//res.send(result.listFiles[0].content);
+	spotlight.annotateFiles(result, function(annotedFiles) {
+		res.send(annotedFiles);
+	});
 }
