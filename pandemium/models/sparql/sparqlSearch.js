@@ -1,6 +1,24 @@
 var sparql = require('sparql');
+var async = require('async');
 
-exports.sparqlSearch = function(urlRessource, callback) {
+exports.enrichFiles = function(annotedFiles, callback) {
+  //todo gerer synchro
+  var enrichedFiles = {};
+  enrichedFiles.enrichedFiles = [];
+  var numberOfFiles = annotedFiles.annotedFiles.length;
+  for(var i = 0; i < numberOfFiles; i++) {
+    var annotedFile = annotedFiles.annotedFiles[i];
+    enrichedFiles.enrichedFiles[i].filename = annotedFile.filename;
+    enrichedFiles.enrichedFiles[i].dbpedia = [];
+    for (var j = 0; j < annotedFile.dbpedia.length; j++) {
+      enrichRessource(annotedFile.dbpedia[j]["@URI"], function(result) {
+          enrichedFiles.enrichedFiles[i].dbpedia[j] = result;      
+      });
+    }
+  }
+}
+
+exports.enrichRessource = function (urlRessource, callback) {
   // ATTENTION : mot est un nom de maladie en ANGLAIS, genre : Influenza, Angina, Allergy.
   // ATTENTION : mot est SENSIBLE A LA CASSE avec cette requête.
   var request =
