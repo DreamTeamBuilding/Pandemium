@@ -1,10 +1,10 @@
 var sparql = require('sparql');
 
-exports.sparqlSearch = function(mot, callback) {
+exports.sparqlSearch = function(urlRessource, callback) {
   // ATTENTION : mot est un nom de maladie en ANGLAIS, genre : Influenza, Angina, Allergy.
   // ATTENTION : mot est SENSIBLE A LA CASSE avec cette requête.
   var request =
-    `PREFIX obj: <http://dbpedia.org/resource/`+mot+`>
+    `PREFIX obj: <`+urlRessource+`>
     PREFIX foaf: <http://xmlns.com/foaf/0.1/>
     PREFIX hyper: <http://purl.org/linguistics/gold/hypernym>
     SELECT ?label ?comment ?page ?image
