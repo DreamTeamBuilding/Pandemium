@@ -1,11 +1,13 @@
 var https = require('https');
 
+
 //Clé lulu
 var apiKey = 'AIzaSyDsFGhns8Rvi-d4l_MRkhzhktRXsAcJ-KI';
 //Clé pierrick
 //var apiKey = 'AIzaSyAC81m_sAt5er7pEWV8iftPZL40YvONc7Es';
 
 //var apiKey = 'AIzaSyBAbIDGkq-3fGya2AUWdiStKuUDrQPb_YI';
+
 var customSearch = '014213754068618715256:oyi0ols3czy';
 var numberOfResult = 10;
 var count = 0;
