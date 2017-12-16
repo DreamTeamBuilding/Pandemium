@@ -9,7 +9,7 @@ exports.spotlightSearch = function(req, res) {
 }
 
 exports.sparqlSearch = function(req, res) {
-	sparql.enrichRessource("http://dbpedia.org/resource/"+escape(req.params.query), function(result) {
+	sparql.enrichRessource("http://fr.dbpedia.org/resource/"+escape(req.params.query), function(result) {
 		res.setHeader('content-type', 'application/json');
 		res.send(result);
 	});
