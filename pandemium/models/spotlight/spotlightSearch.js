@@ -25,7 +25,6 @@ function spotlightSearch(text, callback) {
 
 		var request = http.request(options, function(res) {
 			console.log(res.statusCode);
-			console.log('HEADERS: ' + JSON.stringify(res.headers));
 		// Buffer the body entirely for processing as a whole.
 		var bodyChunks = [];
 		res.on('data', function(chunk) {
