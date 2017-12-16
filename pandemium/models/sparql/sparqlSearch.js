@@ -3,17 +3,14 @@ var async = require('async');
 var enrichedFiles = {};
 
 exports.enrichFiles = function(annotatedFiles, callback) {
-  //todo gerer synchro
   enrichedFiles = {};
   enrichedFiles.enrichedFiles = [];
   async.eachOf(annotatedFiles.annotatedFiles, enrich, function(err) {
-    console.log("done");
     callback(enrichedFiles);
   });
 }
 
 function enrich(item, index, callback) {
-  console.log("enriching " + item.fileName + "...");
   enrichedFiles.enrichedFiles[index] = {};
   enrichedFiles.enrichedFiles[index].fileName = item.fileName;
   enrichedFiles.enrichedFiles[index].dbPedia = [];
@@ -22,17 +19,11 @@ function enrich(item, index, callback) {
     console.log(item.fileName + " enriched");
     callback();
   });
-  /*for (var i = 0; i < item.dbPedia.length; i++) {
-      enrichRessource(item.dbPedia[i]["@URI"], function(result) {
-          enrichedFiles.enrichedFiles[index].dbPedia[i] = result; 
-      });
-  }*/
-}
+  }
 
 function enrichRessourceDbPedia(parentIndex, item, index, callback) {
-  //console.log("adding "+ item["@URI"] + " for file " + parentIndex);
   enrichRessource(item["@URI"], function(result) {
-    console.log(item["@URI"] + " added for file " + parentIndex);
+   // console.log(item["@URI"] + " added for file " + parentIndex);
     enrichedFiles.enrichedFiles[parentIndex].dbPedia[index] = result;
     callback();
   });
@@ -78,6 +69,5 @@ function enrichRessource(urlRessource, callback) {
 		callback(result);
 	});
 }
-
 
 module.exports.enrichRessource = enrichRessource;
