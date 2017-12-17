@@ -25,7 +25,7 @@ function enrich(item, index, callback) {
   enrichedFiles.enrichedFiles[index].fileName = item.fileName;
   enrichedFiles.enrichedFiles[index].dbPedia = [];
   
-  async.eachOf(item.dbPedia, enrichRessourceDbPedia.bind(null, index), function(err) {
+  async.eachOfLimit(item.dbPedia, 10, enrichRessourceDbPedia.bind(null, index), function(err) {
     console.log(item.fileName + " enriched");
     callback();
   });
@@ -33,7 +33,6 @@ function enrich(item, index, callback) {
 
 function enrichRessourceDbPedia(parentIndex, item, index, callback) {
   enrichRessource(item["@URI"], function(result) {
-   // console.log(item["@URI"] + " added for file " + parentIndex);
     enrichedFiles.enrichedFiles[parentIndex].dbPedia[index] = result;
     callback();
   });
@@ -71,12 +70,11 @@ function enrichRessource(urlRessource, callback) {
     LIMIT 3`;
 	var client = new sparql.Client('http://fr.dbpedia.org/sparql');
 	client.query(request, function(err, result) {
-    if(err)
-      console.log("SPARQL ERROR " + err);
-		callback(result);
+    callback(result);
 	});
 }
 
+//TODO
 function subjectRessource(urlRessource, callback) {
   var request =
     `

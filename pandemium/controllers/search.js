@@ -31,13 +31,11 @@ exports.search = function(req, res) {
 
 function processResult(result, res) {
 	extractEntity.extractEntities(result, function(extractedFiles) {
-		//res.send(extractedFiles);
-		
 		spotlight.annotateFiles(extractedFiles, function(annotatedFiles) {
-			//res.send(annotatedFiles);
 			sparql.enrichFiles(annotatedFiles, function(enrichedFiles) {
 				graph = similarity.similarity(enrichedFiles);
 				res.send(graph);
+				console.log("Data sent to client");
 			});
 		});
 	});

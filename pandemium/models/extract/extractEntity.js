@@ -1,9 +1,10 @@
 var Textrazor = require("textrazor");
 var async = require("async");
 
-//17/12/2017
+//17/12/2017 LIMITE A 500 par jours, on les fait 10 par 10
 //var textrazorKey = "3d9b019021c43c9d794ec1091b8c236aa5faede6f17371c4905a49ea";
 var textrazorKey = "5317ba7afe61503ec54fa899b4c353cc6c768b8009ceb9819745d8fb";
+
 var minScore = 0.4;
 var extractedFiles = {};
 

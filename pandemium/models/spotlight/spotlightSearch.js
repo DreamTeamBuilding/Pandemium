@@ -4,8 +4,9 @@ var querystring = require('querystring');
 var defaultConfidence = 0.2;
 var support = 20;
 
-//Peut être ne garder que l'objet Ressources
 function spotlightSearch(text, confidence, callback) {
+	if(!text)
+		text = "beurk";
 	var postData = querystring.stringify({
 		'text': text,
 		'confidence': confidence,
