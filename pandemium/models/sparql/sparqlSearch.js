@@ -14,6 +14,8 @@ exports.enrichFiles = function(annotatedFiles, callback) {
 
   enrichedFiles.enrichedFiles = [];
   async.eachOf(annotatedFiles.annotatedFiles, enrich, function(err) {
+    if(err)
+      console.log("SPARQL callback ERROR " + err);
     callback(enrichedFiles);
   });
 }
@@ -23,7 +25,7 @@ function enrich(item, index, callback) {
   enrichedFiles.enrichedFiles[index].fileName = item.fileName;
   enrichedFiles.enrichedFiles[index].dbPedia = [];
   
-  async.eachOf(item.dbPedia, enrichRessourceDbPedia.bind(null, index), function(err) {
+  async.eachOfLimit(item.dbPedia, 10, enrichRessourceDbPedia.bind(null, index), function(err) {
     console.log(item.fileName + " enriched");
     callback();
   });
@@ -31,7 +33,6 @@ function enrich(item, index, callback) {
 
 function enrichRessourceDbPedia(parentIndex, item, index, callback) {
   enrichRessource(item["@URI"], function(result) {
-   // console.log(item["@URI"] + " added for file " + parentIndex);
     enrichedFiles.enrichedFiles[parentIndex].dbPedia[index] = result;
     callback();
   });
@@ -41,6 +42,40 @@ function enrichRessourceDbPedia(parentIndex, item, index, callback) {
 function enrichRessource(urlRessource, callback) {
   // ATTENTION : mot est un nom de maladie en FRANCIAS, genre : sida, allergie, cancer.
   // ATTENTION : mot est SENSIBLE A LA CASSE avec cette requête.
+  var request =
+    `
+    PREFIX obj: <`+urlRessource+`>
+    PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+    PREFIX hyper: <http://purl.org/linguistics/gold/hypernym>
+    PREFIX dbo: <http://dbpedia.org/ontology/>
+    PREFIX dcterms: <http://purl.org/dc/terms/>
+    SELECT ?label ?comment ?page ?image ?abstract obj: AS ?uriSource
+    WHERE {
+      {   obj: rdfs:label ?label.
+          obj: rdfs:comment ?comment.
+          obj: foaf:isPrimaryTopicOf ?page.
+          obj: foaf:depiction ?image.
+          obj: dbo:abstract ?abstract.
+          FILTER( lang(?label) = "fr" || lang(?label) = "" || !isLiteral(?label))
+          FILTER( lang(?comment) = "fr" || lang(?comment) = "" || !isLiteral(?comment))
+          FILTER( lang(?abstract) = "fr" || lang(?abstract) = "" || !isLiteral(?abstract))
+      }
+      UNION
+      {
+          ?value dbo:wikiPageRedirects obj:.
+          ?value rdfs:label ?label.
+          ?value foaf:isPrimaryTopicOf ?page
+      }
+    }
+    LIMIT 3`;
+	var client = new sparql.Client('http://fr.dbpedia.org/sparql');
+	client.query(request, function(err, result) {
+    callback(result);
+	});
+}
+
+//TODO
+function subjectRessource(urlRessource, callback) {
   var request =
     `
     PREFIX obj: <`+urlRessource+`>
@@ -68,10 +103,10 @@ function enrichRessource(urlRessource, callback) {
       }
     }
     LIMIT 3`;
-	var client = new sparql.Client('http://fr.dbpedia.org/sparql');
-	client.query(request, function(err, result) {
-		callback(result);
-	});
+  var client = new sparql.Client('http://fr.dbpedia.org/sparql');
+  client.query(request, function(err, result) {
+    callback(result);
+  });  
 }
 
 

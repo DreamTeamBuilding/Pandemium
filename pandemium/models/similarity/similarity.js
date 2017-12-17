@@ -25,7 +25,7 @@ function similarity(enrichedFiles) {
 			if(dbpedia[j]) {
 				var bindings = dbpedia[j].results.bindings;
 				for(var k = 0; k < bindings.length; k++) {
-					var uri = bindings[k].page.value
+					var uri = bindings[k].uriSource.value
 					
 					tabSetURI[fileName].add(uri);
 
