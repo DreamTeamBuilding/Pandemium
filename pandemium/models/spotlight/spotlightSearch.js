@@ -1,7 +1,7 @@
 var http = require('http');
 var querystring = require('querystring');
 
-var confidence = 0.2;
+var confidence = 0.4;
 var support = 20;
 
 //Peut être ne garder que l'objet Ressources

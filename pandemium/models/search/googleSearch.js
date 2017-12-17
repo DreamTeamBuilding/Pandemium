@@ -14,7 +14,7 @@ var count = 0;
 var error = false;
 
 function search(query, callback) {
-	var defaultPath = '/customsearch/v1?key='+apiKey+'&cx='+customSearch+'&q='+query;
+	var defaultPath = '/customsearch/v1?key='+apiKey+'&cx='+customSearch+'&hl=fr&cr=countryFR&q='+query;
 	var options = {
 		host: 'www.googleapis.com',
 		path: defaultPath
