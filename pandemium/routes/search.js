@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 router.get('/:query', searchController.search);
 
 router.get('/result/:query', function(req, res, next) {
-  res.render('result', { title: 'Pandemium ' + req.params.query , maladie:  req.params.query});
+  res.render('result', { title: 'Pandemium - ' + req.params.query , maladie:  req.params.query});
 });
 
 module.exports = router;

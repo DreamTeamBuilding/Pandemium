@@ -12,7 +12,7 @@ function callAjax(){
     success:function(data){
       //var data = JSON.stringify(dataRaw);
       console.log(data);
-      buildSimilarities(data.similarity.graph);
+      buildSimilarities(data.similarity.graph, data.enrichedFiles);
       buildDatas(data.similarity.graph);
       buildExpension(data.similarity.graph, data.similarity.graph);
     },
@@ -30,18 +30,19 @@ function buildExpension(data1, data2){
 }
 
 
-function buildSimilarities(graph){
+function buildSimilarities(graph, allPagesInfo){
   var htmlCode = '<table class="result-table">';
   if(graph.length>0)
   {
     htmlCode += '<tr> <th></th>';
     for(j in graph[0].edges){
-      htmlCode += '<th> Res ' + j + '</th>';
+      //TODO change to allPagesInfo[j].name
+      htmlCode += '<th title="'+allPagesInfo[j].fileName+'"> Res ' + j + '</th>';
     }
     htmlCode += '</tr>';
   }
   for(i in graph){
-    htmlCode += '<tr><td>Vs  r ' + i + '</td>';
+    htmlCode += '<tr><td>r ' + i + '</td>';
     for(j in graph[i].edges){
       var taille = graph[i].edges[j]  * 48;
       htmlCode += '<td title="taux de similarité de '+graph[i].edges[j] +'">';
