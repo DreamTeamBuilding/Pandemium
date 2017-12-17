@@ -67,7 +67,9 @@ function annotateFiles(filesList, callback) {
 	annotatedFiles.query = filesList.query;
 
 	spotlightSearch(filesList.query.query, 0, function(res) {
-		annotatedFiles.query.annotatedQuery = res[0];
+		console.log("ANNOTATE QUERY RES : " + res);
+		if(res)
+			annotatedFiles.query.annotatedQuery = res[0];
 	});
 
 	var annotateOneFile = function(loop, i) {

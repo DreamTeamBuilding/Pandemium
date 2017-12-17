@@ -95,7 +95,6 @@ function searchRessource(query) {
     //only the first, this case can not be treadted properly now
     enrichRessource(res.results.bindings[0].hasValue.value, function(res) {
       enrichedFiles.query.enrichedQuery = res;
-      callback()
     });
   });
 }
