@@ -10,7 +10,7 @@ exports.extractContent = function(query, queryResult, callback) {
 	extractUrl.dir = dir;
 	async.eachOf(queryResult.items, extractUrl, function(err) {
 		if(err)
-			console.log("ERROR " + err);
+			console.log("EXTRACT ERROR" + err);
 		callback(query);
 	});
 

@@ -58,8 +58,6 @@ function similarity(enrichedFiles) {
 			if(tabSetURI[fileName]) {
 				var setUnion = tabSetURI[fileName].union(tabSetURI[fn]);
 				var setIntersection = tabSetURI[fileName].intersect(tabSetURI[fn]);
-				console.log("Jaccard pour "+i+":"+j+" : " +setIntersection.size()+"/"+ setUnion.size()+ " Result : "+
-					(setIntersection.size() / setUnion.size()));
 				tabCoeffJaccard[i].edges[j] = setIntersection.size() / setUnion.size();
 				//we don't want any null
 				if(!tabCoeffJaccard[i].edges[j])
@@ -72,9 +70,9 @@ function similarity(enrichedFiles) {
 	result.similarity = {};
 	result.similarity.graph = tabCoeffJaccard;
 	result.similarity.mostPopular = mostPopular;
-	result.similarity.uris = multiSetURI;
+	result.query = enrichedFiles.query;
 	result.enrichedFiles = enrichedFiles.enrichedFiles;
-	console.log("missed " + missingCount);
+	//console.log("missed " + missingCount);
 	return result;
 }
 

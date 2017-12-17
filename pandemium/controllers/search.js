@@ -32,7 +32,7 @@ function processResult(result, res) {
 	spotlight.annotateFiles(result, function(annotedFiles) {
 		sparql.enrichFiles(annotedFiles, function(enrichedFiles) {
 			graph = similarity.similarity(enrichedFiles);
-			res.send(graph.similarity);
+			res.send(graph);
 		});
 	});
 }

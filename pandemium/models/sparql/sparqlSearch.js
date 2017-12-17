@@ -4,6 +4,14 @@ var enrichedFiles = {};
 
 exports.enrichFiles = function(annotatedFiles, callback) {
   enrichedFiles = {};
+  enrichedFiles.query = annotatedFiles.query;
+  if(enrichedFiles.query.annotatedQuery)
+    enrichRessource(enrichedFiles.query.annotatedQuery["@URI"], function(res) {
+      enrichedFiles.query.enrichedQuery = res;
+    });
+  else
+    searchRessource(enrichedFiles.query.query);
+
   enrichedFiles.enrichedFiles = [];
   async.eachOf(annotatedFiles.annotatedFiles, enrich, function(err) {
     callback(enrichedFiles);
@@ -39,23 +47,18 @@ function enrichRessource(urlRessource, callback) {
     PREFIX foaf: <http://xmlns.com/foaf/0.1/>
     PREFIX hyper: <http://purl.org/linguistics/gold/hypernym>
     PREFIX dbo: <http://dbpedia.org/ontology/>
-    SELECT ?label ?comment ?page ?image
+    PREFIX dcterms: <http://purl.org/dc/terms/>
+    SELECT ?label ?comment ?page ?image ?abstract ?subject
     WHERE {
       {   obj: rdfs:label ?label.
           obj: rdfs:comment ?comment.
           obj: foaf:isPrimaryTopicOf ?page.
-          obj: foaf:depiction ?image
+          obj: foaf:depiction ?image.
+          obj: dbo:abstract ?abstract.
+          obj: dcterms:subject ?subject
           FILTER( lang(?label) = "fr" || lang(?label) = "" || !isLiteral(?label))
           FILTER( lang(?comment) = "fr" || lang(?comment) = "" || !isLiteral(?comment))
-      }
-      UNION
-      {
-          ?value hyper: obj:.
-          ?value rdfs:label ?label.
-          ?value rdfs:comment ?comment.
-          ?value foaf:isPrimaryTopicOf ?page.
-          FILTER( lang(?label) = "fr" || lang(?label) = "" || !isLiteral(?label))
-          FILTER( lang(?comment) = "fr" || lang(?comment) = "" || !isLiteral(?comment))
+          FILTER( lang(?abstract) = "fr" || lang(?abstract) = "" || !isLiteral(?abstract))
       }
       UNION
       {
@@ -63,11 +66,38 @@ function enrichRessource(urlRessource, callback) {
           ?value rdfs:label ?label.
           ?value foaf:isPrimaryTopicOf ?page
       }
-    }`;
+    }
+    LIMIT 3`;
 	var client = new sparql.Client('http://fr.dbpedia.org/sparql');
 	client.query(request, function(err, result) {
 		callback(result);
 	});
+}
+
+
+function searchRessource(query) {
+ var request = `
+  PREFIX dbo: <http://dbpedia.org/ontology/>
+  PREFIX label: <http://www.w3.org/2000/01/rdf-schema#label>
+  PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+      
+  SELECT ?hasValue WHERE {
+   ?p a dbo:Disease .
+   ?p label: ?name.
+   ?p ?property ?hasValue
+  FILTER( lang(?hasValue) = "fr" || lang(?hasValue) = "fr" || !isLiteral(?hasValue))
+  FILTER(contains(?name, "`+query+`"))
+  FILTER ( strstarts(str(?hasValue), "http://fr.dbpedia.org/resource/") )
+  }
+ ` 
+  var client = new sparql.Client('http://dbpedia.org/sparql');
+  client.query(request, function(err, res) {
+    //only the first, this case can not be treadted properly now
+    enrichRessource(res.results.bindings[0].hasValue.value, function(res) {
+      enrichedFiles.query.enrichedQuery = res;
+      callback()
+    });
+  });
 }
 
 module.exports.enrichRessource = enrichRessource;
