@@ -15,7 +15,7 @@ function callAjax(){
       buildSimilarities(data.similarity.graph, data.enrichedFiles);
       buildDatas(data.similarity.mostPopular.data);
       buildExpension(data.similarity.graph, data.similarity.graph);
-    },
+    }, 
     error:function(){
       alert('oupsi');}
   });
@@ -43,16 +43,17 @@ function buildDatas(data){
     }
   }
   for (let item of images) {
-    //htmlCode += '<img id="image-maladie" src="' + item + '">';
+    htmlCode += '<img class="image-maladie" src="' + item + '">';
   }
   for (let item of descriptions) {
     htmlCode += item;
-    htmlCode += '<br/>';
+    htmlCode += '<br>';
   }
   for (let item of pages) {
     htmlCode += '<a href="' + item + '">' + item + '<a/>';
-    htmlCode += '<br/>';
+    htmlCode += '<br>';
   }
+  htmlCode += '<br class="clear">';
 
   $('#container-data1').html(htmlCode);
 }

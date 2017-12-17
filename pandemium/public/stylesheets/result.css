@@ -32,3 +32,11 @@
   width : 100%;
   background : green;
 }
+.image-maladie{
+  float : left;
+  margin : 10px;
+  max-width : 200px;
+}
+.clear{
+  clear : both;
+}
