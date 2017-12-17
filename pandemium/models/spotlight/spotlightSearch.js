@@ -1,12 +1,11 @@
 var http = require('http');
 var querystring = require('querystring');
 
-var defaultConfidence = 0.4;
+var defaultConfidence = 0.2;
 var support = 20;
 
 //Peut être ne garder que l'objet Ressources
 function spotlightSearch(text, confidence, callback) {
-	text = text.replace(/ /g, '%20');
 	var postData = querystring.stringify({
 		'text': text,
 		'confidence': confidence,
@@ -60,22 +59,21 @@ function asyncLoop(o) {
 
 
 function annotateFiles(filesList, callback) {
-	// filesList ->  {"listFiles" : [{"filename" : "blabla", "content" : "blablabla"},{"filename" : "blabla", "content" : "blablabla"}], "query": {"query": "sida"}}
+	// filesList ->  {"extractedFiles" : [{"filename" : "blabla", "content" : "blablabla"},{"filename" : "blabla", "content" : "blablabla"}], "query": {"query": "sida"}}
 	// annotatedFiles -> {"annotatedFiles" : [{"fileName": "fichierSource", "dbPedia": "resultatSpotligtSearch"}], "query": {"query": "sida", "annotatedQuery": "result"}}
 	var annotatedFiles = {};
 	annotatedFiles.annotatedFiles = [];
 	annotatedFiles.query = filesList.query;
 
 	spotlightSearch(filesList.query.query, 0, function(res) {
-		console.log("ANNOTATE QUERY RES : " + res);
 		if(res)
 			annotatedFiles.query.annotatedQuery = res[0];
 	});
 
 	var annotateOneFile = function(loop, i) {
 		var file = {};
-		file.fileName = filesList.listFiles[i].filename;
-		spotlightSearch(filesList.listFiles[i].content, defaultConfidence, res => {
+		file.fileName = filesList.extractedFiles[i].fileName;
+		spotlightSearch(filesList.extractedFiles[i].content, defaultConfidence, res => {
 			file.dbPedia = res;
 			annotatedFiles.annotatedFiles.push(file);
 			loop();
@@ -83,7 +81,7 @@ function annotateFiles(filesList, callback) {
 	};
 
 	asyncLoop({
-		length : filesList.listFiles.length,
+		length : filesList.extractedFiles.length,
 		functionToLoop : annotateOneFile,
 		callback : function(){
 			callback(annotatedFiles);

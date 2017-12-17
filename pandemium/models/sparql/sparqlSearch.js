@@ -14,6 +14,8 @@ exports.enrichFiles = function(annotatedFiles, callback) {
 
   enrichedFiles.enrichedFiles = [];
   async.eachOf(annotatedFiles.annotatedFiles, enrich, function(err) {
+    if(err)
+      console.log("SPARQL callback ERROR " + err);
     callback(enrichedFiles);
   });
 }
@@ -48,6 +50,41 @@ function enrichRessource(urlRessource, callback) {
     PREFIX hyper: <http://purl.org/linguistics/gold/hypernym>
     PREFIX dbo: <http://dbpedia.org/ontology/>
     PREFIX dcterms: <http://purl.org/dc/terms/>
+    SELECT ?label ?comment ?page ?image ?abstract obj: AS ?uriSource
+    WHERE {
+      {   obj: rdfs:label ?label.
+          obj: rdfs:comment ?comment.
+          obj: foaf:isPrimaryTopicOf ?page.
+          obj: foaf:depiction ?image.
+          obj: dbo:abstract ?abstract.
+          FILTER( lang(?label) = "fr" || lang(?label) = "" || !isLiteral(?label))
+          FILTER( lang(?comment) = "fr" || lang(?comment) = "" || !isLiteral(?comment))
+          FILTER( lang(?abstract) = "fr" || lang(?abstract) = "" || !isLiteral(?abstract))
+      }
+      UNION
+      {
+          ?value dbo:wikiPageRedirects obj:.
+          ?value rdfs:label ?label.
+          ?value foaf:isPrimaryTopicOf ?page
+      }
+    }
+    LIMIT 3`;
+	var client = new sparql.Client('http://fr.dbpedia.org/sparql');
+	client.query(request, function(err, result) {
+    if(err)
+      console.log("SPARQL ERROR " + err);
+		callback(result);
+	});
+}
+
+function subjectRessource(urlRessource, callback) {
+  var request =
+    `
+    PREFIX obj: <`+urlRessource+`>
+    PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+    PREFIX hyper: <http://purl.org/linguistics/gold/hypernym>
+    PREFIX dbo: <http://dbpedia.org/ontology/>
+    PREFIX dcterms: <http://purl.org/dc/terms/>
     SELECT ?label ?comment ?page ?image ?abstract ?subject
     WHERE {
       {   obj: rdfs:label ?label.
@@ -68,10 +105,10 @@ function enrichRessource(urlRessource, callback) {
       }
     }
     LIMIT 3`;
-	var client = new sparql.Client('http://fr.dbpedia.org/sparql');
-	client.query(request, function(err, result) {
-		callback(result);
-	});
+  var client = new sparql.Client('http://fr.dbpedia.org/sparql');
+  client.query(request, function(err, result) {
+    callback(result);
+  });  
 }
 
 
