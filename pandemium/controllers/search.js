@@ -2,6 +2,8 @@ var search = require('../models/search/search');
 var extract = require('../models/extract/extract');
 var restore = require('../models/restore/restore');
 var spotlight = require('../models/spotlight/spotlightSearch');
+var sparql = require('../models/sparql/sparqlSearch');
+var similarity = require('../models/similarity/similarity');
 var fs = require('fs');
 
 exports.search = function(req, res) {
@@ -28,6 +30,9 @@ exports.search = function(req, res) {
 
 function processResult(result, res) {
 	spotlight.annotateFiles(result, function(annotedFiles) {
-		res.send(annotedFiles);
+		sparql.enrichFiles(annotedFiles, function(enrichedFiles) {
+			graph = similarity.similarity(enrichedFiles);
+			res.send(graph);
+		});
 	});
 }

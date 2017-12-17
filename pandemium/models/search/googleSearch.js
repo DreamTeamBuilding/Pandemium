@@ -1,4 +1,5 @@
 var https = require('https');
+var querystring = require('querystring');
 
 
 //Clé lulu
@@ -14,7 +15,7 @@ var count = 0;
 var error = false;
 
 function search(query, callback) {
-	var defaultPath = '/customsearch/v1?key='+apiKey+'&cx='+customSearch+'&q='+query;
+	var defaultPath = '/customsearch/v1?key='+apiKey+'&cx='+customSearch+'&hl=fr&cr=countryFR&'+querystring.stringify({q: query});
 	var options = {
 		host: 'www.googleapis.com',
 		path: defaultPath
@@ -45,7 +46,7 @@ function search(query, callback) {
 
 	request.on('error', function(e) {
 		error = true;
-		console.log('ERROR' + e.message);
+		console.log('GOOGLE ERROR' + e.message);
 	});
 
 }
@@ -61,7 +62,6 @@ function finalCallback(body, callback) {
 				data.items = data.items.concat(items);
 			}
 		}
-		console.log(data.items.length + " results obtained");
 		if(data.items.length == 0) {
 			error = true;
 		}

@@ -1,9 +1,9 @@
 extends content
 
 block content-body
-  h1= maladie
-  p
-    Hey hey hey :) Ici sera le texte et tout #lorem ipsus #op #swag
+  h1(id='sickness-name')= maladie
+  div(id='container-data1')
+    | chargement des données en cours
     br
     br
 
@@ -18,9 +18,10 @@ block content-body
   div(class="row")
     div(class="col-sm-6 half-page")
       h3 En savoir plus
-      p ici on va mettre toutes les infos qu'on aura réussi à concaténer à travers toutes nos super requetes, avec la tolérance jouant sur l'étalage des données qu'on va chercher et tout et tout et tout #lorem ipsus
+      div(id='container-expended') chargement des données en cours
     div(class="col-sm-6 half-page")
       h3 Similarites
-      p et ici on aura un beau tableau de comparaison des similarités et tout
+      div(id='container-similarities') chargement des données en cours
 
-  script(src="js/slider.js")
+    script(src="/js/slider.js")
+    script(src="/js/loader.js")
