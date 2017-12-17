@@ -32,11 +32,26 @@ function buildExpension(data1, data2){
 
 function buildSimilarities(graph){
   var htmlCode = '<table class="result-table">';
+  if(graph.length>0)
+  {
+    htmlCode += '<tr> <th></th>';
+    for(j in graph[0].edges){
+      htmlCode += '<th> Res ' + j + '</th>';
+    }
+    htmlCode += '</tr>';
+  }
   for(i in graph){
-    htmlCode += '<tr>';
+    htmlCode += '<tr><td>Vs  r ' + i + '</td>';
     for(j in graph[i].edges){
-      htmlCode += '<td>';
-      htmlCode += graph[i].edges[j];
+      var taille = graph[i].edges[j]  * 48;
+      htmlCode += '<td title="taux de similarité de '+graph[i].edges[j] +'">';
+      if(i==j)
+        htmlCode += ' - ' ;
+      else {
+        htmlCode += '<div class="back-circle" style="width:' + taille +'px;height: ' + taille + 'px">';
+        htmlCode += '<div class="front-circle" style="opacity : '+ graph[i].edges[j] +'"></div>';
+      }
+      htmlCode += '</div>';
       htmlCode += '</td>';
     }
     htmlCode += '</tr>';
