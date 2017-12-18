@@ -12,7 +12,7 @@ var citations = [
   {"auteur" : "Woody Allen", "citation" : "La vie est une maladie mortelle, sexuellement transmissible."},
   {"auteur" : "Pierre Dac", "citation" : "J'étais chauve... et je le suis encore... grâces aux pastilles de menthe."},
   {"auteur" : "Woody Allen", "citation" : "Je n'ai pas peur de la mort, mais quand elle se présentera, j'aimerais autant ne pas être là."},
-  {"auteur" : "Jean Marie Bigard", "citation" : "Les hémorroïdes gagnent du terrain, les chercheurs de grattent la tête."},
+  {"auteur" : "Jean Marie Bigard", "citation" : "Les hémorroïdes gagnent du terrain, les chercheurs se grattent la tête."},
   {"auteur" : "Jean Marie Bigard", "citation" : "Si l'avortement est un meurtre, la branlette c'est quoi, un génocide ?"},
   {"auteur" : "Lawrence Durrell", "citation" : "La maladie ne s'intéresse pas à ceux qui ont envie de mourir."},
   {"auteur" : "Nicolas de Chamfort", "citation" : "Vivre est une maladie dont le someil nous soulage toutes les seize heures."},
