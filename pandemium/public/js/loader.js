@@ -14,8 +14,8 @@ function callAjax(){
       console.log(data);
       buildSimilarities(data.similarity.graph, data.enrichedFiles);
       buildDatas(data.similarity.mostPopular.data);
-      buildExpension(data.similarity.graph, data.similarity.graph);
-    }, 
+      buildExpension(data.similarity.suggestions);
+    },
     error:function(){
       alert('oupsi');}
   });
@@ -58,8 +58,17 @@ function buildDatas(data){
   $('#container-data1').html(htmlCode);
 }
 
-function buildExpension(data1, data2){
-  $('#container-expended').html('Hop, des comparaisons');
+function buildExpension(data){
+  var htmlCode = '';
+  for(i in data) {
+
+    var fileName = data[i].substr(data[i].lastIndexOf("/")+1);
+    fileName = fileName.replace('_', ' ');
+    htmlCode += '<a href="' + data[i] + '">' + fileName + '<a/>';
+    htmlCode += '<br>';
+  }
+
+  $('#container-expended').html(htmlCode);
 }
 
 
