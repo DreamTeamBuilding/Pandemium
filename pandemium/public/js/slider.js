@@ -10,5 +10,6 @@ function setTolerance(){
 
 function calculateWithTolerance(){
   var value = document.getElementById('toleranceSlider').value;
+  alert("Lancement nouvelle recherche");
   callAjax();
 }

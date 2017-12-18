@@ -3,7 +3,6 @@ var displayQuery = true;
 
 export function callAjax(){
   var sickness = $('#sickness-name').html();
-  console.log('/search/'+encodeURI(sickness));
   var value = document.getElementById('toleranceSlider').value / 100;
   $.ajax({
     url : '/search/'+encodeURI(sickness),
@@ -20,7 +19,7 @@ export function callAjax(){
         buildDatas(data.query.enrichedQuery, $('#container-data2'));
         $('#container-data2').css("display", "block");
       }
-      buildExpension(data.similarity.graph, data.similarity.graph);
+      buildExpension(data.similarity.suggestions);
     }, 
     error:function(){
       alert('oupsi');}
@@ -81,8 +80,17 @@ function buildDatas(data, container){
   container.html(htmlCode);
 }
 
-function buildExpension(data1, data2){
-  $('#container-expended').html('Hop, des comparaisons');
+function buildExpension(data){
+  var htmlCode = '';
+  for(var i in data) {
+
+    var fileName = data[i].substr(data[i].lastIndexOf("/")+1);
+    fileName = fileName.replace('_', ' ');
+    htmlCode += '<a href="' + data[i] + '">' + fileName + '<a/>';
+    htmlCode += '<br>';
+  }
+
+  $('#container-expended').html(htmlCode);
 }
 
 
