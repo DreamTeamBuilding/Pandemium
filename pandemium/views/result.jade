@@ -8,11 +8,11 @@ block content-body
     br
 
   div(class='headerDark row slider')
-    h3 Augmentation du champ de recherche
-    p Tolerance
-      span(id="seuilToleranceTxt")  70
+    h3 Restriction du champ de recherche
+    p Exigence
+      span(id="seuilToleranceTxt")  40
       | %
-    input(id="toleranceSlider" type="range" min="0" max="100" value="70")
+    input(id="toleranceSlider" type="range" min="0" max="100" value="40")
     br
 
   div(class="row content-wrapper")
@@ -23,5 +23,8 @@ block content-body
       h3 Similarites
       div(id='container-similarities') chargement des données en cours
 
-    script(src="/js/slider.js")
-    script(src="/js/loader.js")
+  div(id='container-data2')
+      | chargement des données en cours
+
+  script(src="/js/slider.js" type="module")
+  script(src="/js/loader.js" type="module")

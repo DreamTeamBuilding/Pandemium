@@ -128,9 +128,11 @@ function searchRessource(query) {
   var client = new sparql.Client('http://dbpedia.org/sparql');
   client.query(request, function(err, res) {
     //only the first, this case can not be treadted properly now
-    enrichRessource(res.results.bindings[0].hasValue.value, function(res) {
-      enrichedFiles.query.enrichedQuery = res;
-    });
+    if(res.results.bindings[0]) {
+      enrichRessource(res.results.bindings[0].hasValue.value, function(res) {
+        enrichedFiles.query.enrichedQuery = res;
+      }); 
+    }
   });
 }
 

@@ -1,3 +1,7 @@
+h3{
+  display:inline;
+}
+
 .half-page{
   margin-top : 20px;
   margin-bottom : 20px;
@@ -39,4 +43,8 @@
 }
 .clear{
   clear : both;
+}
+
+#container-data2{
+  display: none;
 }

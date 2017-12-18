@@ -1,19 +1,25 @@
 $(document).ready(callAjax);
+var displayQuery = true;
 
-
-function callAjax(){
+export function callAjax(){
   var sickness = $('#sickness-name').html();
-
+  console.log('/search/'+encodeURI(sickness));
+  var value = document.getElementById('toleranceSlider').value / 100;
   $.ajax({
     url : '/search/'+encodeURI(sickness),
     type : 'GET',
     contentType: "application/json",
+    data : {'minScore': value},
     dataType: "json",
     success:function(data){
       //var data = JSON.stringify(dataRaw);
       console.log(data);
       buildSimilarities(data.similarity.graph, data.enrichedFiles);
-      buildDatas(data.similarity.mostPopular.data);
+      buildDatas(data.similarity.mostPopular.data, $('#container-data1'));
+      if(displayQuery && data.query.enrichedQuery) {
+        buildDatas(data.query.enrichedQuery, $('#container-data2'));
+        $('#container-data2').css("display", "block");
+      }
       buildExpension(data.similarity.graph, data.similarity.graph);
     }, 
     error:function(){
@@ -21,14 +27,18 @@ function callAjax(){
   });
 }
 
-function buildDatas(data){
+function buildDatas(data, container){
   var htmlCode = '';
   var descriptions = new Set();
   var images = new Set();
   var pages = new Set();
   var commentaires = new Set();
   var elements = data.results.bindings;
-  for(i in elements){
+  var titres = new Set();
+  for(var i in elements){
+    if(elements[i].label){
+      titres.add(elements[i].label.value);
+    }
     if(elements[i].abstract){
       descriptions.add(elements[i].abstract.value);
     }
@@ -36,7 +46,7 @@ function buildDatas(data){
       images.add(elements[i].image.value);
     }
     if(elements[i].comment){
-      commentaires.add(elements[i].abstract.comment);
+      commentaires.add(elements[i].comment.value);
     }
     if(elements[i].page){
       pages.add(elements[i].page.value);
@@ -45,6 +55,19 @@ function buildDatas(data){
   for (let item of images) {
     htmlCode += '<img class="image-maladie" src="' + item + '">';
   }
+  for (let item of titres) {
+    htmlCode += '<h3>' + item + '</h3>';
+    htmlCode += ' ';
+  }
+  htmlCode += '<br>';
+  /*
+  //Inutile, tres souvent abstract contient la meme chose
+  for (let item of commentaires) {
+    htmlCode += item;
+    htmlCode += '<br>';
+  }
+  */
+  htmlCode += '<br>';
   for (let item of descriptions) {
     htmlCode += item;
     htmlCode += '<br>';
@@ -53,9 +76,9 @@ function buildDatas(data){
     htmlCode += '<a href="' + item + '">' + item + '<a/>';
     htmlCode += '<br>';
   }
-  htmlCode += '<br class="clear">';
+  htmlCode += '<br><br class="clear">';
 
-  $('#container-data1').html(htmlCode);
+  container.html(htmlCode);
 }
 
 function buildExpension(data1, data2){
@@ -68,15 +91,15 @@ function buildSimilarities(graph, allPagesInfo){
   if(graph.length>0)
   {
     htmlCode += '<tr> <th></th>';
-    for(j in graph[0].edges){
+    for(var j in graph[0].edges){
       //TODO change to allPagesInfo[j].name
       htmlCode += '<th title="'+allPagesInfo[j].fileName+'"> Res ' + j + '</th>';
     }
     htmlCode += '</tr>';
   }
-  for(i in graph){
+  for(var i in graph){
     htmlCode += '<tr><td>r ' + i + '</td>';
-    for(j in graph[i].edges){
+    for(var j in graph[i].edges){
       var taille = graph[i].edges[j]  * 48;
       htmlCode += '<td title="taux de similarité de '+graph[i].edges[j] +'">';
       if(i==j)

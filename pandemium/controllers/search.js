@@ -15,13 +15,15 @@ exports.search = function(req, res) {
 		fs.mkdirSync(cacheDir);
 	}
 	var requete = req.params.query;
+	var minScore = req.query.minScore;
+	console.log(req.query);
 	var dir = cacheDir+'/'+requete;
 	if(!fs.existsSync(dir))
 	{
 		//Not in cache, do request
 		search.search(requete, function(queryResult) {
 			extract.extractContent(requete, queryResult, function(q) {
-				processResult(restore.getContent(q), res);
+				processResult(restore.getContent(q), res, minScore);
 			});
 		});
 	} else {
@@ -29,8 +31,8 @@ exports.search = function(req, res) {
 	}
 }
 
-function processResult(result, res) {
-	extractEntity.extractEntities(result, function(extractedFiles) {
+function processResult(result, res, minScore) {
+	extractEntity.extractEntities(result, minScore, function(extractedFiles) {
 		spotlight.annotateFiles(extractedFiles, function(annotatedFiles) {
 			sparql.enrichFiles(annotatedFiles, function(enrichedFiles) {
 				graph = similarity.similarity(enrichedFiles);

@@ -1,6 +1,7 @@
 // With JQuery
 $('#toleranceSlider').bind("input",setTolerance);
 $('#toleranceSlider').bind("change",calculateWithTolerance);
+import {callAjax} from './loader.js';
 
 function setTolerance(){
   var value = document.getElementById('toleranceSlider').value;
@@ -9,5 +10,5 @@ function setTolerance(){
 
 function calculateWithTolerance(){
   var value = document.getElementById('toleranceSlider').value;
-  alert('On va relancer le calcul avec une tolérance de  : ' + value);
+  callAjax();
 }
