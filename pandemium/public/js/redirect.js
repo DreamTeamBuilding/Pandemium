@@ -4,6 +4,6 @@ function redirect(event){
   event.preventDefault();
   var string = document.getElementById("search-field").value;
   if(string!=""){
-    window.location.href = ("/search/" + encodeURI(string));
+    window.location.href = ("/search/result/" + encodeURI(string));
   }
 }

@@ -1,0 +1,50 @@
+h3{
+  display:inline;
+}
+
+.half-page{
+  margin-top : 20px;
+  margin-bottom : 20px;
+}
+.content-wrapper{
+  margin : 0;
+}
+.half-page:first-child{
+  border-right : solid 1px #00C75B;
+}
+
+.result-table{
+  margin : auto;
+}
+
+.result-table td, .result-table th{
+  border : 1px solid #00C75B;
+  text-align : center ;
+  max-width : 50px;
+  height : 50px;
+}
+
+.result-table td .back-circle{
+  border-radius: 50%;
+  background : red;
+  margin : auto;
+}
+
+.result-table td .front-circle{
+  border-radius: 50%;
+  height : 100%;
+  width : 100%;
+  background : green;
+}
+.image-maladie{
+  float : left;
+  margin : 10px;
+  max-width : 200px;
+}
+.clear{
+  clear : both;
+}
+
+#container-data2{
+  display: none;
+}

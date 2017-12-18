@@ -1,0 +1,37 @@
+#toleranceSlider {
+  width : 50%;
+  margin : auto;
+}
+
+
+#toleranceSlider{
+    -webkit-appearance: none;
+    height: 25px;
+    /*background: #16DB70*/
+    border:1px solid #16DB70; 
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+#toleranceSlider:hover, #toleranceSlider:active  {
+    opacity: 1;
+    border : solid 1px #953C2E;
+}
+
+#toleranceSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #953C2E;
+    cursor: pointer;
+}
+
+#toleranceSlider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #953C2E;
+    cursor: pointer;
+}

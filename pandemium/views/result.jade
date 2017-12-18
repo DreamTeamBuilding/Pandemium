@@ -1,0 +1,30 @@
+extends content
+
+block content-body
+  h1(id='sickness-name')= maladie
+  div(id='container-data1')
+    | chargement des données en cours
+    br
+    br
+
+  div(class='headerDark row slider')
+    h3 Restriction du champ de recherche
+    p Exigence
+      span(id="seuilToleranceTxt")  40
+      | %
+    input(id="toleranceSlider" type="range" min="0" max="100" value="40")
+    br
+
+  div(class="row content-wrapper")
+    div(class="col-sm-6 half-page")
+      h3 En savoir plus
+      div(id='container-expended') chargement des données en cours
+    div(class="col-sm-6 half-page")
+      h3 Similarites
+      div(id='container-similarities') chargement des données en cours
+
+  div(id='container-data2')
+      | chargement des données en cours
+
+  script(src="/js/slider.js" type="module")
+  script(src="/js/loader.js" type="module")

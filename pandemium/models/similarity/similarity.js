@@ -12,6 +12,7 @@ function similarity(enrichedFiles) {
 	var tabSetURI = [];
 	var listFileNames = [];
 	var multiSetURI = {};
+	var multiSetWikiURI = {};
 	var mostPopular = {};
 	mostPopular.count = 0;
 	var missingCount = 0;
@@ -19,14 +20,14 @@ function similarity(enrichedFiles) {
 		var fileName = enrichedFiles.enrichedFiles[i].fileName;
 		listFileNames[i] = fileName;
 		tabSetURI[fileName] = new Set();
-		
+
 		var dbpedia = enrichedFiles.enrichedFiles[i].dbPedia;
 		for(var j = 0; j < dbpedia.length; j++) {
 			if(dbpedia[j]) {
 				var bindings = dbpedia[j].results.bindings;
 				for(var k = 0; k < bindings.length; k++) {
 					var uri = bindings[k].uriSource.value
-					
+
 					tabSetURI[fileName].add(uri);
 
 					if(multiSetURI[uri]) {
@@ -38,6 +39,14 @@ function similarity(enrichedFiles) {
 					}
 					else
 						multiSetURI[uri] = 1;
+
+					// On récupère les uri wikipedia pour faire des suggestions
+					var wikiUri = bindings[k].page.value
+					if(multiSetWikiURI[wikiUri]) {
+						multiSetWikiURI[wikiUri] +=1;
+					}
+					else
+						multiSetWikiURI[wikiUri] = 1;
 				}
 			}
 			else {
@@ -65,6 +74,10 @@ function similarity(enrichedFiles) {
 			}
 		}
 	}
+
+	var arrayWikiURIOrdered = Object.keys(multiSetWikiURI).sort(function(a,b){return multiSetWikiURI[b]-multiSetWikiURI[a]});
+	arrayWikiURIOrdered = arrayWikiURIOrdered.slice(0,10);
+
 	// Construction JSON
 	var result = {};
 	result.similarity = {};
@@ -72,6 +85,7 @@ function similarity(enrichedFiles) {
 	result.similarity.mostPopular = mostPopular;
 	result.query = enrichedFiles.query;
 	result.enrichedFiles = enrichedFiles.enrichedFiles;
+	result.similarity.suggestions = arrayWikiURIOrdered;
 	//console.log("missed " + missingCount);
 	return result;
 }
